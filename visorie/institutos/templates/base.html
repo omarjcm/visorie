@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GeoPortal de los Institutos Educativos de la Zona 8</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="Shortcut Icon" type="image/png" href="/static/img/favicon.png" />
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/css/styles.css" rel="stylesheet" media="screen">
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/markers.js"></script>
+    <script src="/static/js/institutos.js"></script>
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+	body {
+	  padding-top: 50px;
+	}
+      #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script>
+        var institutos = [
+            {% for c in institutos %}{"nombre":"{{ c.ie_institucion }}",
+"longitud":"{{ c.geom.point_on_surface.x }}", "latitud":"{{ c.geom.point_on_surface.y }}"} 
+				{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+        var institutos_within = [
+            {% for c in institutos_within %}{"nombre":"{{ c.ie_institucion }}",
+"longitud":"{{ c.geom.point_on_surface.x }}", "latitud":"{{ c.geom.point_on_surface.y }}"} 
+				{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+        var institutos_left = [
+            {% for c in institutos_left %}{"nombre":"{{ c.ie_institucion }}",
+"longitud":"{{ c.geom.point_on_surface.x }}", "latitud":"{{ c.geom.point_on_surface.y }}"} 
+				{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+        var institutos_right = [
+            {% for c in institutos_right %}{"nombre":"{{ c.ie_institucion }}",
+"longitud":"{{ c.geom.point_on_surface.x }}", "latitud":"{{ c.geom.point_on_surface.y }}"} 
+				{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+    </script>
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+          <div style="color: white; font-size:20px; padding:8px 10px 0 10px; width: 100%; font-size:24px;">GeoPortal de los Institutos Educativos de la Zona 8</div>
+      </div>
+    </div>
+    	<div id="map-canvas"></div>
+
+  <div id="totalizadores">
+      <div style="padding: 10px; text-align: center;">
+      <p><button class='btn btn-info' onclick="mostrarIE();">Todos</button></p>
+      <p><button class='btn btn-info' onclick="mostrarWithin();">Funcion "within"</button></p>
+      <p><button class='btn btn-info' onclick="mostrarLeft();">Funcion "left"</button></p>
+      <p><button class='btn btn-info' onclick="mostrarRight();">Funcion "right"</button></p>
+      </div>
+  </div>
+
+
+  <div id="footer">
+  </div>
+  </body>
+</html>

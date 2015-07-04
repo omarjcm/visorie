@@ -1,0 +1,8 @@
+[ {% if monitoreos_establecimientos %}
+	{% for objeto in monitoreos %} {
+		"codigo":"{{ objeto.me_industria_codigo }}",
+		"nombre":"{{ objeto.me_industria_nombre }}",
+		"resultado":"{{ objeto.me_resultado }}"
+	}{% if not forloop.last %},{% endif %}
+	{% endfor %}
+{% endif %} ]

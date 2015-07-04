@@ -1,0 +1,5 @@
+{% for industria in industrias %}
+    <div id={{industria.in_id}} class='waypoint linkOFF'>
+        {{industria.in_nombre}} ({{industria.geometry.y}}, {{industria.geometry.x}})
+    </div>
+{% endfor %}
